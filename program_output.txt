@@ -1,0 +1,13 @@
+vagrant@vagrant:/vagrant/newsdata$ python newsdata.py
+What are the most popular three articles of all time?
+('\t', 1, '-', 'Candidate is jerk, alleges rival', '\t - ', '338647', 'views')
+('\t', 2, '-', 'Bears love berries, alleges bear', '\t - ', '253801', 'views')
+('\t', 3, '-', 'Bad things gone, say good people', '\t - ', '170098', 'views')
+Who are the most popular article authors of all time?
+('\t', 1, '-', 'Ursula La Multa', '\t - ', '507594', 'views')
+('\t', 2, '-', 'Rudolf von Treppenwitz', '\t - ', '423457', 'views')
+('\t', 3, '-', 'Anonymous Contributor', '\t - ', '170098', 'views')
+('\t', 4, '-', 'Markoff Chaney', '\t - ', '84557', 'views')
+On which days did more than 1% of requests lead to errors?
+('\t', '2016-07-17', '-', '2.26% errors')
+vagrant@vagrant:/vagrant/newsdata$
