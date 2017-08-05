@@ -13,22 +13,21 @@ This README file outlines the steps for how to go about the FSND Udacity Logs An
 
 After you've completed the above mentioned steps, you should be able to run the three project queries as listed below:
 
-**View for 1st query: What are the most popular three articles of all time**
-CREATE VIEW articles_by_author AS
-SELECT articles.title, count(\*) as views from articles inner join log on log.path like concat('%', articles.slug, '%') where log.status
+**View for 1st query: What are the most popular three articles of all time**  
+CREATE VIEW articles_by_author AS  
+SELECT articles.title, count(\*) as views from articles inner join log on log.path like concat('%', articles.slug, '%') where log.status  
 like '%200%' group by articles.title, log.path order by views desc limit 3";
 
-**View for 2nd query: Who are the most popular article authors of all time?**
-CREATE VIEW articles_by_view AS
-SELECT authors.name, count(\*) as views from articles inner join authors on articles.author = authors.id inner join log on log.path like 
+**View for 2nd query: Who are the most popular article authors of all time?**  
+CREATE VIEW articles_by_view AS  
+SELECT authors.name, count(\*) as views from articles inner join authors on articles.author = authors.id inner join log on log.path like   
 concat('%', articles.slug, '%') where log.status like '%200%' group by authors.name order by views desc;
 
-**View for 3rd query: On which days did more than 1% of requests lead to errors?**
-CREATE VIEW errors AS
-SELECT day, perc from (select day, round((sum(requests)/(select count(\*) from log where substring(cast(log.time as text), 0, 11) = day)
-\* 100), 2) as perc from (select substring(cast(log.time as text), 0, 11) as day, count(\*) as requests from log where status like 
+**View for 3rd query: On which days did more than 1% of requests lead to errors?**  
+CREATE VIEW errors AS  
+SELECT day, perc from (select day, round((sum(requests)/(select count(\*) from log where substring(cast(log.time as text), 0, 11) = day)  
+\* 100), 2) as perc from (select substring(cast(log.time as text), 0, 11) as day, count(\*) as requests from log where status like   
 '%404%' group by day) as log\_percentage group by day order by perc desc) as final\_query where perc >= 1;
-
 
 
 [The Github link to this repo] (https://github.com/hicham-alaoui/h-a-log-analysis) :shipit:
