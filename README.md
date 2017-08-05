@@ -1,6 +1,6 @@
 This README file outlines the steps for how to go about the FSND Udacity Logs Analysis Project.
 
-* It is assumed you are a FSND Udacity student using the VM embedded in the FSND VM and that you have Python, Vagrant and Virtualbox installed on your device. 
+It is assumed you are a FSND Udacity student using the VM embedded in the FSND VM and that you have Python, Vagrant and Virtualbox installed on your device.  
 * Create a new folder/dir and download the newsdata folder using the link available from the project resources.
 * Add vagrant to this same folder using the command vagrant init
 * Run the comand vagrant up to create a VM instance: vagrant up
