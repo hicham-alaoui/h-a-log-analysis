@@ -1,82 +1,71 @@
-# H.A. Log Analysis Project
+# UDACITY Log Analysis Project
 
-# import Postgresql library
+# import psycopg2 to implement DB-API
 import psycopg2
 
-# import datetime.date module
-from datetime import date
+
+# function to connect to the news database
+def connect():
+    return psycopg2.connect("dbname=news")
+
+# top three articles query
+articles = "select title, hits from top_three_articles limit 3"
 
 
-# Query 1 What are the most popular three articles of all time?
-query_1_title = ("What are the most popular three articles of all time?")
-query_1 = (
-    "select articles.title, count(*) as views "
-    "from articles inner join log on log.path "
-    "like concat('%', articles.slug, '%') "
-    "where log.status like '%200%' group by "
-    "articles.title, log.path order by views desc limit 3")
+def top_articles(articles):
+    a = connect()
+    c = a.cursor()
+    c.execute(articles)
+    counts = c.fetchall()
+    for x in range(len(counts)):
+        title = counts[x][0]
+        hits = counts[x][1]
+        print("%s| Total hits: %d" % (title, hits))
+    a.close()
 
-# Query 2 Who are the most popular article authors of all time?
-query_2_title = ("Who are the most popular article authors of all time?")
-query_2 = (
-    "select authors.name, count(*) as views from articles inner "
-    "join authors on articles.author = authors.id inner join log "
-    "on log.path like concat('%', articles.slug, '%') where "
-    "log.status like '%200%' group "
-    "by authors.name order by views desc")
-
-# Query 3 which days did more than 1% of requests lead to errors
-query_3_title = ("On which days did more than 1% of requests lead to errors?")
-query_3 = (
-    "select day, perc from ("
-    "select day, round((sum(requests)/(select count(*) from log where "
-    "substring(cast(log.time as text), 0, 11) = day) * 100), 2) as "
-    "perc from (select substring(cast(log.time as text), 0, 11) as day, "
-    "count(*) as requests from log where status like '%404%' group by day)"
-    "as log_percentage group by day order by perc desc) as final_query "
-    "where perc >= 1")
+# top three authors query
+authors = "select * from top_three_authors"
 
 
-def connect(database_name="news"):
-    """Connect to the PostgreSQL database. Returns a database connection """
-    try:
-        db = psycopg2.connect("dbname={}".format(database_name))
-        cursor = db.cursor()
-        return db, cursor
-    except:
-        print ("Unable to connect to the database")
+def top_authors(authors):
+    b = connect()
+    c = b.cursor()
+    c.execute(authors)
+    counts = c.fetchall()
+    for y in range(len(counts)):
+        name = counts[y][0]
+        hits = counts[y][1]
+        print("%s| Total hits:  %d" % (name, hits))
+    b.close()
+
+# more than 1% error rate query
+
+errors = "select * from error_rate"
 
 
-def get_query_results(query):
-    """Return query results for given query """
-    db, cursor = connect()
-    cursor.execute(query)
-    return cursor.fetchall()
-    db.close()
+def error_percent(errors):
+    d = connect()
+    c = d.cursor()
+    c.execute(errors)
+    counts = c.fetchall()
+    for i in range(len(counts)):
+        date = counts[i][0]
+        percentage = counts[i][1]
+        print("%s|%.1f %%" % (date, percentage))
+    d.close()
 
+# python output statements
 
-def print_query_results(query_results):
-    print (query_results[1])
-    for index, results in enumerate(query_results[0]):
-        print (
-            "\t", index+1, "-", results[0],
-            "\t - ", str(results[1]), "views")
+if __name__ == "__main__":
+    print("The three articles with most hits are listed below:" + "\n")
+    top_articles(articles)
+    print("\n")
 
+    print("The three authors with most hits are listed below:" + "\n")
+    top_articles(authors)
+    print("\n")
 
-def print_error_results(query_results):
-    print (query_results[1])
-    for results in query_results[0]:
-        print ("\t", results[0], "-", str(results[1]) + "% errors")
+    print("The day when the error rate was more than 1 percent:" + "\n")
+    error_percent(errors)
 
-
-if __name__ == '__main__':
-    # store the three queries results
-    popular_articles_results = get_query_results(query_1), query_1_title
-    popular_authors_results = get_query_results(query_2), query_2_title
-    load_error_days = get_query_results(query_3), query_3_title
-
-    # print the three queries results
-    print_query_results(popular_articles_results)
-    print_query_results(popular_authors_results)
-    print_error_results(load_error_days)
     
