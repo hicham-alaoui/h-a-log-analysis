@@ -1,13 +1,21 @@
-vagrant@vagrant:/vagrant/newsdata$ python newsdata.py
-What are the most popular three articles of all time?
-('\t', 1, '-', 'Candidate is jerk, alleges rival', '\t - ', '338647', 'views')
-('\t', 2, '-', 'Bears love berries, alleges bear', '\t - ', '253801', 'views')
-('\t', 3, '-', 'Bad things gone, say good people', '\t - ', '170098', 'views')
-Who are the most popular article authors of all time?
-('\t', 1, '-', 'Ursula La Multa', '\t - ', '507594', 'views')
-('\t', 2, '-', 'Rudolf von Treppenwitz', '\t - ', '423457', 'views')
-('\t', 3, '-', 'Anonymous Contributor', '\t - ', '170098', 'views')
-('\t', 4, '-', 'Markoff Chaney', '\t - ', '84557', 'views')
-On which days did more than 1% of requests lead to errors?
-('\t', '2016-07-17', '-', '2.26% errors')
+news=> \q
+vagrant@vagrant:/vagrant/newsdata$ python log_analysis.py
+The three articles with most hits are listed below:
+
+Candidate is jerk, alleges rival| Total hits: 338647
+Bears love berries, alleges bear| Total hits: 253801
+Bad things gone, say good people| Total hits: 170098
+
+
+The three authors with most hits are listed below:
+
+Ursula La Multa| Total hits: 507594
+Rudolf von Treppenwitz| Total hits: 423457
+Anonymous Contributor| Total hits: 170098
+
+
+The day when the error rate was more than 1 percent:
+
+2016-07-17|2.3 %
 vagrant@vagrant:/vagrant/newsdata$
+
