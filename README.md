@@ -14,16 +14,14 @@ It is assumed you are a FSND Udacity student using the VM embedded in the FSND V
 After you've completed the above mentioned steps, you should be able to run the three project queries as listed below:
 
 **View for 1st query: What are the most popular three articles of all time**  
-CREATE VIEW articles_by_author AS  
-SELECT articles.title, count(\*) as views from articles inner join log on log.path like concat('%', articles.slug, '%') where log.status  
-like '%200%' group by articles.title, log.path order by views desc limit 3";
+CREATE VIEW top_three_authors AS  
+select authors.name, count(articles.author) as hits from articles, log, authors where log.path = concat('/article/', articles.slug) and articles.author=authors.id group by authors.name order by hits desc limit 3;
 
 **View for 2nd query: Who are the most popular article authors of all time?**  
-CREATE VIEW articles_by_view AS  
-SELECT authors.name, count(\*) as views from articles inner join authors on articles.author = authors.id inner join log on log.path like   
-concat('%', articles.slug, '%') where log.status like '%200%' group by authors.name order by views desc;
+CREATE VIEW top_three_articles AS  
+select title, author, count(title) as hits from articles, log where log.path = concat('/article/', articles.slug) group by articles.title, articles.author order by hits desc limit 3;
 
-**View for 3rd query: Day where error rate was over 1% **  
+**View for 3rd query: Day where error rate was over 1%**  
 CREATE VIEW error_rate AS  
 select day, rate from (select day, round((sum(queries)/(select count(*) from log where substring(cast(log.time as text), 0, 11) = day) * 100), 2) as rate from (select substring (cast(log.time as text), 0, 11) as day, count(*) as queries from log where status like '%4%' group by day) as query_rate  group by day order by rate desc) as error_rate where rate >= 1;
 
