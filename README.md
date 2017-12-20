@@ -23,7 +23,7 @@ CREATE VIEW articles_by_view AS
 SELECT authors.name, count(\*) as views from articles inner join authors on articles.author = authors.id inner join log on log.path like   
 concat('%', articles.slug, '%') where log.status like '%200%' group by authors.name order by views desc;
 
-**View for 3rd query: On which days did more than 1% of requests lead to errors?**  
+**View for 3rd query: Day where error rate was over 1% **  
 CREATE VIEW error_rate AS  
 select day, rate from (select day, round((sum(queries)/(select count(*) from log where substring(cast(log.time as text), 0, 11) = day) * 100), 2) as rate from (select substring (cast(log.time as text), 0, 11) as day, count(*) as queries from log where status like '%4%' group by day) as query_rate  group by day order by rate desc) as error_rate where rate >= 1;
 
