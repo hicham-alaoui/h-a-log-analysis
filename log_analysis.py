@@ -67,5 +67,3 @@ if __name__ == "__main__":
 
     print("The day when the error rate was more than 1 percent:" + "\n")
     error_percent(errors)
-
-    
