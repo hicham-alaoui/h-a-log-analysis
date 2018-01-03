@@ -22,7 +22,8 @@ def most_popular_articles():
     for x in range(len(counts)):
             title = counts[x][0]
             hits = counts[x][1]
-            print("%s| Total hits: %d" % (title, hits))
+            print("%s|Total hits:%d" % (title, hits))
+
 
 def most_popular_authors():
     """Query for most popular authors"""
@@ -34,6 +35,7 @@ def most_popular_authors():
         name = counts[y][0]
         hits = counts[y][1]
         print("%s| Total hits:  %d" % (name, hits))
+
 
 def error_percent():
     """Query for day with error rate higher than 1%"""
@@ -47,8 +49,6 @@ def error_percent():
         print("%s|%.1f %%" % (date, percentage))
 
 
-
-
 if __name__ == "__main__":
     print("The three articles with most hits are listed below:")
     most_popular_articles()
@@ -56,9 +56,9 @@ if __name__ == "__main__":
 
     print("The three authors with most hits are listed below:")
     most_popular_authors()
-    print("\n")  
+    print("\n")
 
     print("The day when the error rate was more than 1 percent:")
     error_percent()
 
- print "\nAll done!\n"
+    print "\nAll done!\n"
