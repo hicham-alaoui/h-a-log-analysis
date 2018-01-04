@@ -16,7 +16,7 @@ def connect(dbname="news"):
 def most_popular_articles():
     """Query for most popular three articles"""
     db, c = connect()
-    articles_query = "select * from top_three_articles limit 3"
+    articles_query = "select title, hits from top_three_articles limit 3"
     c.execute(articles_query)
     counts = c.fetchall()
     for x in range(len(counts)):
@@ -62,4 +62,3 @@ if __name__ == "__main__":
     error_percent()
 
     print "\nAll done!\n"
- 
