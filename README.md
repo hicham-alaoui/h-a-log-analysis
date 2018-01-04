@@ -25,5 +25,8 @@ select title, author, count(title) as hits from articles, log where log.path = c
 CREATE VIEW error_rate AS  
 select day, rate from (select day, round((sum(queries)/(select count(*) from log where substring(cast(log.time as text), 0, 11) = day) * 100), 2) as rate from (select substring (cast(log.time as text), 0, 11) as day, count(*) as queries from log where status like '%4%' group by day) as query_rate  group by day order by rate desc) as error_rate where rate >= 1;
 
+**Runing the queries in python**
+After creating all the queires within the news database, now you need to quite the psql environemnt using the keyboard shortcut ctrl+d (Windows) or your own preferred method.  
+You will be taken back to the newsdata directory in your vagrnat machine (vagrant@vagrant:/vagrant/newsdata$). Type python followed by space then your python file name (python log_analysis.py) then hit enter. Python will triger the process of connecting to the database and generating the query results included in the script.
 
 [The Github link to this repo] (https://github.com/hicham-alaoui/h-a-log-analysis) :shipit:
