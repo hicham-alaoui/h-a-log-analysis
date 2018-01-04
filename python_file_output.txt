@@ -1,21 +1,19 @@
-news=> \q
-vagrant@vagrant:/vagrant/newsdata$ python log_analysis.py
+vagrant@vagrant:/vagrant/newsdata$ python project.py
 The three articles with most hits are listed below:
-
-Candidate is jerk, alleges rival| Total hits: 338647
-Bears love berries, alleges bear| Total hits: 253801
-Bad things gone, say good people| Total hits: 170098
+Candidate is jerk, alleges rival|Total hits:338647
+Bears love berries, alleges bear|Total hits:253801
+Bad things gone, say good people|Total hits:170098
 
 
 The three authors with most hits are listed below:
-
-Ursula La Multa| Total hits: 507594
-Rudolf von Treppenwitz| Total hits: 423457
-Anonymous Contributor| Total hits: 170098
+Ursula La Multa| Total hits:  507594
+Rudolf von Treppenwitz| Total hits:  423457
+Anonymous Contributor| Total hits:  170098
 
 
 The day when the error rate was more than 1 percent:
-
 2016-07-17|2.3 %
-vagrant@vagrant:/vagrant/newsdata$
+
+All done!
+
 
